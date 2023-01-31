@@ -1,11 +1,11 @@
-import { createStore } from 'redux';
-
 const initialState = {
   amount: '19',
   currencyCode: 'USD',
 }
 
-function reducer(state = initialState, action) {
+
+
+export function ratesReducer(state = initialState, action) {
   switch(action.type) {
     case 'amountChanged':
      return {
@@ -21,5 +21,3 @@ function reducer(state = initialState, action) {
        return state
   } 
 }
-
-export const store = createStore(reducer);
