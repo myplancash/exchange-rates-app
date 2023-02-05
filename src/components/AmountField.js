@@ -5,7 +5,7 @@ export function AmountField({ amount }) {
 
   const dispatch = useDispatch()
 
-  const onChange = (e) => {
+  const onChange = () => {
     dispatch(changeAmount(amount))
   }
 
