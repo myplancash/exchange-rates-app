@@ -4,7 +4,6 @@ import { CurrencyCodePicker } from "./CurrencyCodePicker";
 import { AmountField } from "./AmountField";
 // import { getExchangeRates } from "../api";
 import { 
-  getCurrencyCode, 
   getAmount,
   getCurrencyData,
 } from '../store/rates';
@@ -13,7 +12,7 @@ export function ExchangeRate() {
   // const dispatch = useDispatch();
   // const [currencyData, setCurrencyData<] = useState({ USD: 1.0 });
   const amount = useSelector(getAmount)
-  const currencyCode = useSelector(getCurrencyCode)
+  // const currencyCode = useSelector(getCurrencyCode)
   const currencyData = useSelector(getCurrencyData)
   
 

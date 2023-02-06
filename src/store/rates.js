@@ -3,9 +3,10 @@ import { getExchangeRates } from '../api';
 const initialState = {
   amount: '19.99',
   currencyCode: 'JPY',
-  currencyData: { 
-    USD: 1.0 
-  },
+  currencyData: [{ 
+    code: "USD",
+    rate: 1.0, 
+  }],
   supportedCurrencies: ["USD", "EUR", "JPY", "CAD", "GBP", "MXN"],
 }
 
@@ -23,9 +24,13 @@ export function ratesReducer(state = initialState, action) {
       }
     case RATES_RECEIVED: {
       const codes = Object.keys(action.payload).concat(state.currencyCode)
+      const currencyData = [];
+      for(let code in action.payload) {
+        currencyData.push({ code, rate: action.payload[code] })
+      }
       return {
         ...state,
-        currencyData: action.payload,
+        currencyData,
         supportedCurrencies: codes,
       }
     }
