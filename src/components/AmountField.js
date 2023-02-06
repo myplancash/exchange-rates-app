@@ -1,12 +1,14 @@
-import { useDispatch } from 'react-redux';
-import { changeAmount } from '../store/rates';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeAmount, getAmount } from '../store/rates';
 
-export function AmountField({ amount }) {
+export function AmountField() {
 
   const dispatch = useDispatch()
+  const amount = useSelector(getAmount)
 
-  const onChange = () => {
-    dispatch(changeAmount(amount))
+  const onChange = (e) => {
+    let newAmount = e.target.value
+    dispatch(changeAmount(newAmount))
   }
 
   return (
