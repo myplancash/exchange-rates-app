@@ -29,14 +29,6 @@ export function ratesReducer(state = initialState, action) {
             displayLabel
           }
         }
-
-        // when its an array and an object inside
-        /* currencyData: state.currencyData.map((data) => {
-          if(currencyCode === data.code) {
-            return { ...data, displayLabel }
-          }
-          return data
-        }) */
       }
     } 
     case RATES_RECEIVED: {
