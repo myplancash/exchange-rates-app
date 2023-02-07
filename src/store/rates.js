@@ -3,10 +3,7 @@ import { getExchangeRates } from '../api';
 const initialState = {
   amount: '19.99',
   currencyCode: 'JPY',
-  currencyData: [{ 
-    code: "USD",
-    rate: 1.0, 
-  }],
+  currencyData: { USD: { displayLabel: "US Dollars", code: "USD", rate: 1.0 } },
   supportedCurrencies: ["USD", "EUR", "JPY", "CAD", "GBP", "MXN"],
 }
 
@@ -22,11 +19,31 @@ export function ratesReducer(state = initialState, action) {
         ...state,
         currencyCode: action.payload
       }
+    case "rates/labelReceived": {
+      const { displayLabel, currencyCode } = action.payload;
+      return {
+        ...state,
+        currencyData: {
+          [currencyCode]: {
+            ...state.currencyData[currencyCode],
+            displayLabel
+          }
+        }
+
+        // when its an array and an object inside
+        /* currencyData: state.currencyData.map((data) => {
+          if(currencyCode === data.code) {
+            return { ...data, displayLabel }
+          }
+          return data
+        }) */
+      }
+    } 
     case RATES_RECEIVED: {
       const codes = Object.keys(action.payload).concat(state.currencyCode)
-      const currencyData = [];
+      const currencyData = {};
       for(let code in action.payload) {
-        currencyData.push({ code, rate: action.payload[code] })
+        currencyData[code] = { code, rate: action.payload[code] }
       }
       return {
         ...state,
@@ -43,6 +60,11 @@ export const getAmount = (state) => state.rates.amount;
 export const getCurrencyCode = (state) => state.rates.currencyCode
 export const getCurrencyData = (state) => state.rates.currencyData
 export const getSupportedCurrencies = (state) => state.rates.supportedCurrencies
+// when ur dealing with an array of values in SELECTORS u have to loop through every single item in the array to find the one u want
+export const getDisplayLabel = (state, currencyCode) => {
+  const match = state.rates.currencyData[currencyCode]
+  if(match) return match.displayLabel
+}
  
 // ACTION tYPES
 export const AMOUNT_CHANGE = 'rates/amountChanged';

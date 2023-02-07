@@ -7,7 +7,7 @@ export function RateTable({ currencyData, amount }) {
   return (
     <table className="ExchangeRate-table">
       <tbody>
-        {currencyData.map(({code, rate}) => {
+        {Object.values(currencyData).map(({code, rate, displayLabel}) => {
           // NOTE: normally avoid floating point math in JS
           const exchangeAmount = amount * rate || 0.0;
           return (
@@ -20,6 +20,7 @@ export function RateTable({ currencyData, amount }) {
                 })}
               </td>
             </tr>
+          
           );
         })}
       </tbody>
